@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/bower_components/masonry/dist/masonry.pkgd.js'></script>
+    <script src='/bower_components/classie/classie.js'></script>
+    <script src='/javascripts/tiles.js'></script>
+
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    {{>map}}
+   
+    <div id="tileContainer" class="js-masonry" data-masonry-options='{"columnWidth":10, "itemSelector" : ".tile"}'>
+      
+      <div class="grid-sizer"></div>
+
+      {{#tiles}}
+
+       {{>tile}}
+
+      {{/tiles}}
+   
+    </div>
+  </body>
+</html>
