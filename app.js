@@ -36,10 +36,3 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
-// request("http://www.kimonolabs.com/api/6mj7dam6?apikey=2a2e7b35f40f277187d903c41c7d3851", 
-// function(err, response, body) {
-//   if (!err && response.statusCode == 200) {
-//     console.log(response); // Print the google web page.
-//   }
-// });
