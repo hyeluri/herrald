@@ -1,6 +1,6 @@
  <div class="tile">
   <div class="tile-content">
-    <h3>Welcome to {{{ heading }}}</h3>
-    <p> {{ content }} </p>
+    <h3>{{ heading }}</h3>
+    <p> {{{ content }}} </p>
   </div>
 </div>

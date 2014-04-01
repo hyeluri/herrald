@@ -1,25 +1,30 @@
 
-/*
- * GET home page.
- */
+var fs = require('fs');
+var util = require('../lib/utility.js');
 
 exports.index = function(req, res){
-  res.render('index', {
+  fs.readFile('./kimonoData.json',{encoding:"utf-8"},function(err, data){
+    if(err){
+      console.log("error");
+    }else{
+      data = JSON.parse(data);
+      console.log(data.results.collection1[0]);
 
-    title:"hooraayyy",
+      var tileData=[];
+      
+      for (var i = 0; i < 21; i++) {
+        tileData.push({heading: data.results.collection1[i].title, content: util.newLineToBr(data.results.collection1[i].body.text)});
+      };
 
-    tiles: [
-      {heading: "Sushi Chef, Chef Helper, and Servers Wanted (dublin / pleasanton / livermore)", content: "Zakuro Japanese Bistro & Sushi Bar is looking for customer service oriented sushi chefs, chef assistants, and servers to start immediately. Previous experience is preferable. We will start contacting eligible candidates right away. To apply please email your resume, phone number and availability to hello[at]zakurobistro.com or reply to this posting."},
-      {heading: "Sr. Visual Designer @ Scribd (SOMA / south beach)", content: "Scribd is a technology company in San Francisco building the world's online library. Scribd has raised $26M, is profitable, and is one of the largest sites on the web, but it is still run by a comparatively small team and still in the very early stages of achieving our vision for what the library of the future could be. We recently launched a subscription service that is widely being called the first 'Netflix for books' and we're very excited about it."},
-      {heading: "Math/Science teacher, Spanish Teacher, Preschool Teacher ", content: "We are a small school located in a beautiful neighborhood in West San Jose. We offer a well rounded program with a challenging curriculum and lots of rigor during school hours. If you are a motivated, organized and focused individual who meets the following requirements, we would love to hear from you."},
-      {heading: "Sushi Chef, Chef Helper, and Servers Wanted (dublin / pleasanton / livermore)", content: "Zakuro Japanese Bistro & Sushi Bar is looking for customer service oriented sushi chefs, chef assistants, and servers to start immediately. Previous experience is preferable. We will start contacting eligible candidates right away. To apply please email your resume, phone number and availability to hello[at]zakurobistro.com or reply to this posting."},
-      {heading: "Sr. Visual Designer @ Scribd (SOMA / south beach)", content: "Scribd is a technology company in San Francisco building the world's online library. Scribd has raised $26M, is profitable, and is one of the largest sites on the web, but it is still run by a comparatively small team and still in the very early stages of achieving our vision for what the library of the future could be. We recently launched a subscription service that is widely being called the first 'Netflix for books' and we're very excited about it."},
-      {heading: "Math/Science teacher, Spanish Teacher, Preschool Teacher ", content: "We are a small school located in a beautiful neighborhood in West San Jose. We offer a well rounded program with a challenging curriculum and lots of rigor during school hours. If you are a motivated, organized and focused individual who meets the following requirements, we would love to hear from you."},
-      {heading: "Sr. Visual Designer @ Scribd (SOMA / south beach)", content: "Scribd is a technology company in San Francisco building the world's online library. Scribd has raised $26M, is profitable, and is one of the largest sites on the web, but it is still run by a comparatively small team and still in the very early stages of achieving our vision for what the library of the future could be. We recently launched a subscription service that is widely being called the first 'Netflix for books' and we're very excited about it."},
-      {heading: "Math/Science teacher, Spanish Teacher, Preschool Teacher ", content: "We are a small school located in a beautiful neighborhood in West San Jose. We offer a well rounded program with a challenging curriculum and lots of rigor during school hours. If you are a motivated, organized and focused individual who meets the following requirements, we would love to hear from you."},
-      {heading: "Sushi Chef, Chef Helper, and Servers Wanted (dublin / pleasanton / livermore)", content: "Zakuro Japanese Bistro & Sushi Bar is looking for customer service oriented sushi chefs, chef assistants, and servers to start immediately. Previous experience is preferable. We will start contacting eligible candidates right away. To apply please email your resume, phone number and availability to hello[at]zakurobistro.com or reply to this posting."},
-      {heading: "Sr. Visual Designer @ Scribd (SOMA / south beach)", content: "Scribd is a technology company in San Francisco building the world's online library. Scribd has raised $26M, is profitable, and is one of the largest sites on the web, but it is still run by a comparatively small team and still in the very early stages of achieving our vision for what the library of the future could be. We recently launched a subscription service that is widely being called the first 'Netflix for books' and we're very excited about it."}
+      var test = util.newLineToBr('asdfasf\nasfasdf');
 
-      ]
+      console.log(test);
+      var tileDataObj = {
+        title:"hooraayyy",
+        tiles: tileData
+      };
+
+      res.render('index', tileDataObj);
+    }
   });
 };
