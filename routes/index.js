@@ -17,21 +17,49 @@ exports.index = function(req, res){
     }else{
       data = JSON.parse(data);
 
-      //get data from giant JSON object
-      var tileData=[];
-      var parsedBody;
-      for (var i = 0; i < 21; i++) {
-        if(data.results.collection1[i].body.text){
-          parsedBody = util.newLineToBr(data.results.collection1[i].body.text)
-        }else{
-          parsedBody = util.newLineToBr(data.results.collection1[i].body)
-        }
+      // for uncleaned data...missing some map info
+      // //get data from giant JSON object
+      // var tileData=[];
+      // var parsedBody;
+      // for (var i = 0; i < 21; i++) {
+      //   if(data.results.collection1[i].body.text){
+      //     parsedBody = util.newLineToBr(data.results.collection1[i].body.text)
+      //   }else{
+      //     parsedBody = util.newLineToBr(data.results.collection1[i].body)
+      //   }
 
-        tileData.push({heading: data.results.collection1[i].title, content: parsedBody});
+      //   tileData.push({heading: data.results.collection1[i].title, postDate: data.results.collection1[i].postDate, content: parsedBody});
+      // }
+
+      //filtering the data for listings that have
+      var cleanedData = [];
+      for (var j = 0; j < data.results.collection1.length; j++) {
+        if(data.results.collection1[j].map !== ""){
+          data.results.collection1[j].mapDesc = util.truncate((data.results.collection1[j].body.text)? data.results.collection1[j].body.text : data.results.collection1[j].body,500);
+         // console.log(data.results.collection1[j].mapDesc);
+          cleanedData.push(data.results.collection1[j]);
+        }
       }
 
+      var tileData=[];
+      var parsedBody;
+      console.log(cleanedData.length);
+      for (var i = 0; i < cleanedData.length; i++) {
+        if(cleanedData[i].body.text){
+          parsedBody = util.newLineToBr(cleanedData[i].body.text);
+        }else{
+          parsedBody = util.newLineToBr(cleanedData[i].body);
+        }
+        //mapData.push(cleanedData[i].map);
+        tileData.push({heading: cleanedData[i].title, postDate: cleanedData[i].postDate, content: parsedBody});
+      }
+      
+      //var jsonMapData = JSON.stringify(mapData);
+      var jsonData = JSON.stringify(cleanedData);
+
       var tileDataObj = {
-        tiles: tileData
+        tiles: tileData,
+        allData: jsonData
       };
 
       res.render('index', tileDataObj);

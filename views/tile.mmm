@@ -2,7 +2,10 @@
   <div class="tile-content">
  
     <h4>{{ heading }}</h4>
-    
+    <p class="postDate"> {{ postDate }}</p>
+    <div class="rating">
+     <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+    </div>
     <p class="tile-body"> 
       {{{ content }}}
     </p>
